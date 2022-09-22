@@ -3,7 +3,7 @@
 //noinspection GroovyUnusedAssignment
 @Library("Infrastructure") _
 
-def product = 'rse'
+def product = 'dtsse'
 
 withInfraPipeline(product) {
   enableSlackNotifications('rse')
