@@ -1,6 +1,6 @@
 # rse-shared-infrastructure
 
-Shared infrastructure for the Reform Software Engineering team. 
+Shared infrastructure pipeline for the Reform Software Engineering team. 
 
 - appinsights
 - vault
