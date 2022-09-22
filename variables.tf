@@ -26,3 +26,12 @@ variable "appinsights_location" {
   description = "Location for Application Insights"
 }
 
+variable subscription {}
+
+variable postgresql_user {
+  default = "rse"
+}
+
+variable database_name {
+  default = "dashboard"
+}
