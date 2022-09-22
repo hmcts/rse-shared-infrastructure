@@ -1,6 +1,6 @@
-# rse-shared-infrastructure
+# dtsse-shared-infrastructure
 
-Shared infrastructure pipeline for the Reform Software Engineering team. 
+Shared infrastructure pipeline for the DTS Software Engineering team. 
 
 - appinsights
 - vault
