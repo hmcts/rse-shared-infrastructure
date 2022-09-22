@@ -10,7 +10,7 @@ module "database" {
   location              = var.location
   env                   = var.env
   postgresql_user       = var.postgresql_user
-  database_name         = dashboard
+  database_name         = "dashboard"
   postgresql_version    = 11
   common_tags           = var.common_tags
   subscription          = var.subscription
