@@ -4,7 +4,7 @@ variable "common_tags" {
 }
 
 variable "product" {
-  default = "rse"
+  default = "dtsse"
 }
 variable "env" {}
 variable "tenant_id" {}
@@ -29,7 +29,7 @@ variable "appinsights_location" {
 variable subscription {}
 
 variable postgresql_user {
-  default = "rse"
+  default = "dtsse"
 }
 
 variable database_name {
