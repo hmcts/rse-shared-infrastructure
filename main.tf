@@ -18,7 +18,7 @@ module "key-vault" {
   resource_group_name = azurerm_resource_group.rg.name
 
   # dcd_platformengineering group object ID
-  product_group_name = "DTS CFT Developers"
+  product_group_name = "DTS CFT Software Engineering"
   common_tags                = var.common_tags
   create_managed_identity    = true
 }
