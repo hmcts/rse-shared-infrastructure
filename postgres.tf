@@ -18,6 +18,6 @@ module "database" {
 
 resource "azurerm_key_vault_secret" "DB-URL" {
   name = "db-url"
-  value = "postgresql://${module.database.user_name}:${module.database.postgresql_password}@${module.database.host_name}:${module.database.postgresql_listen_port}/${module.database.database_name}"
+  value = "postgresql://${module.database.user_name}:${module.database.postgresql_password}@${module.database.host_name}:${module.database.postgresql_listen_port}/${module.database.postgresql_database}"
   key_vault_id = module.key-vault.key_vault_id
 }
