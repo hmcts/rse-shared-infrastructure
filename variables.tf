@@ -27,11 +27,3 @@ variable "appinsights_location" {
 }
 
 variable subscription {}
-
-variable postgresql_user {
-  default = "dtsse"
-}
-
-variable database_name {
-  default = "dashboard"
-}
