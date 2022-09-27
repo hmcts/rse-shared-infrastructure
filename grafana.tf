@@ -3,6 +3,7 @@ resource "azurerm_dashboard_grafana" "dashboard-grafana" {
   name                              = "${var.product}-grafana-${var.env}"
   resource_group_name               = azurerm_resource_group.rg.name
   location                          = "westeurope"
+  deterministic_outbound_ip_enabled = true
 
   identity {
     type = "SystemAssigned"
