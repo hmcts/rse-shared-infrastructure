@@ -17,7 +17,7 @@ module "database" {
 }
 
 resource "azurerm_postgresql_firewall_rule" "example" {
-  name                = "office"
+  name                = "grafana"
   resource_group_name = module.database.resource_group_name
   server_name         = module.database.name
   start_ip_address    = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
