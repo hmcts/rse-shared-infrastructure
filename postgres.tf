@@ -28,6 +28,7 @@ module "database" {
   pgsql_version = "12"
 
   common_tags = var.common_tags
+  resource_group_name = azurerm_resource_group.rg.name
 }
 
 resource "azurerm_key_vault_secret" "DB-URL" {
