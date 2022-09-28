@@ -16,13 +16,13 @@ module "database" {
     }
   ]
 
-#  pgsql_firewall_rules = [
-#    {
-#      name    = "allow-grafana"
-#      start_ip_address = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
-#      end_ip_address = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
-#    }
-#  ]
+  pgsql_firewall_rules = [
+    {
+      name    = "allow-grafana"
+      start_ip_address = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
+      end_ip_address = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
+    }
+  ]
 
   # Set your PostgreSQL version, note AzureAD auth requires version 12 (and not 11 or 13 currently)
   pgsql_version = "12"
