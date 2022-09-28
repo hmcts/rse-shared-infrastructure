@@ -4,35 +4,28 @@ locals {
 }
 
 module "database" {
-  source = "git@github.com:hmcts/terraform-module-postgresql-flexible?ref=master"
-  env    = var.env
-  product   = var.product
-  component = local.component
-  project   = "cft" # sds or cft
+  source                = "git@github.com:hmcts/cnp-module-postgres?ref=postgresql_tf"
+  product               = var.product
+  component             = local.component
+  location              = var.location
+  env                   = var.env
+  postgresql_user       = var.product
+  database_name         = "dashboard"
+  postgresql_version    = 11
+  common_tags           = var.common_tags
+  subscription          = var.subscription
+}
 
-  pgsql_databases = [
-    {
-      name : "dashboard"
-    }
-  ]
-
-  pgsql_firewall_rules = [
-    {
-      name    = "allow-grafana"
-      start_ip_address = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
-      end_ip_address = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
-    }
-  ]
-
-  # Set your PostgreSQL version, note AzureAD auth requires version 12 (and not 11 or 13 currently)
-  pgsql_version = "12"
-
-  common_tags = var.common_tags
-  resource_group_name = azurerm_resource_group.rg.name
+resource "azurerm_postgresql_firewall_rule" "example" {
+  name                = "office"
+  resource_group_name = module.database.resource_group_name
+  server_name         = module.database.name
+  start_ip_address    = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
+  end_ip_address      = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
 }
 
 resource "azurerm_key_vault_secret" "DB-URL" {
   name = "db-url"
-  value = "postgresql://pgadmin:${module.database.password}@${module.database.fqdn}:5432/dashboard}?sslmode=require"
+  value = "postgresql://${module.database.user_name}:${module.database.postgresql_password}@${module.database.host_name}:${module.database.postgresql_listen_port}/${module.database.postgresql_database}?sslmode=require"
   key_vault_id = module.key-vault.key_vault_id
 }
