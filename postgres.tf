@@ -16,12 +16,13 @@ module "database" {
   subscription          = var.subscription
 }
 
-resource "azurerm_postgresql_firewall_rule" "example" {
-  name                = "grafana"
+resource "azurerm_postgresql_firewall_rule" "grafana" {
+  for_each            = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip
+  name                = "grafana" + each.key
   resource_group_name = module.database.resource_group_name
   server_name         = module.database.name
-  start_ip_address    = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
-  end_ip_address      = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
+  start_ip_address    = each.value
+  end_ip_address      = each.value
 }
 
 resource "azurerm_key_vault_secret" "DB-URL" {
