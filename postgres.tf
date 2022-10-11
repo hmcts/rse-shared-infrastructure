@@ -18,7 +18,7 @@ module "database" {
 
 resource "azurerm_postgresql_firewall_rule" "grafana" {
   for_each            = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip
-  name                = "grafana" + each.key
+  name                = "grafana${each.key}"
   resource_group_name = module.database.resource_group_name
   server_name         = module.database.name
   start_ip_address    = each.value
