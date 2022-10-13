@@ -42,3 +42,10 @@ resource "azurerm_role_assignment" "platops" {
   role_definition_name = "Grafana Admin"
   principal_id         = data.azuread_group.platops.object_id
 }
+
+resource "azurerm_role_assignment" "app_insights_dcd_cnp_prod_access" {
+  scope                = "/subscriptions/8999dec3-0104-4a27-94ee-6588559729d1"
+  role_definition_name = "Reader"
+  principal_id         = azurerm_dashboard_grafana.dashboard-grafana.identity.principal_id
+}
+
