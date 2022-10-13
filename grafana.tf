@@ -33,11 +33,12 @@ resource "azurerm_role_assignment" "admin" {
 }
 
 data "azuread_group" "platops" {
-  display_name = "DTS Platform Operations"
+  display_name     = "DTS Platform Operations"
+  security_enabled = true
 }
 
 resource "azurerm_role_assignment" "platops" {
   scope                = azurerm_dashboard_grafana.dashboard-grafana.id
-  role_definition_name = "Platform Operations"
+  role_definition_name = "Grafana Admin"
   principal_id         = data.azuread_group.platops.object_id
 }

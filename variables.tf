@@ -26,4 +26,4 @@ variable "appinsights_location" {
   description = "Location for Application Insights"
 }
 
-variable subscription {}
+variable "subscription" {}
