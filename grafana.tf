@@ -12,6 +12,16 @@ resource "azurerm_dashboard_grafana" "dashboard-grafana" {
   tags = var.common_tags
 }
 
+data "azuread_group" "viewers" {
+  display_name = "SSO Dynatrace HMCTS Access"
+}
+
+resource "azurerm_role_assignment" "viewers" {
+  scope                = azurerm_dashboard_grafana.dashboard-grafana.id
+  role_definition_name = "Grafana Viewer"
+  principal_id         = data.azuread_group.viewers.object_id
+}
+
 data "azuread_group" "editors" {
   display_name = "DTS CFT Developers"
 }
