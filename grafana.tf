@@ -23,12 +23,12 @@ resource "azurerm_role_assignment" "viewers" {
 }
 
 data "azuread_group" "more_viewers" {
-  display_name = "SSO Dynatrace HMCTS Access"
+  display_name = "GeoBlocking - Restricted Users"
 }
 
 resource "azurerm_role_assignment" "more_viewers" {
   scope                = azurerm_dashboard_grafana.dashboard-grafana.id
-  role_definition_name = "SSO APM DTS Read Only"
+  role_definition_name = "Grafana Viewer"
   principal_id         = data.azuread_group.more_viewers.object_id
 }
 
