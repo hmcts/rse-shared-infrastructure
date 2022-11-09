@@ -28,7 +28,7 @@ data "azuread_group" "more_viewers" {
 
 resource "azurerm_role_assignment" "more_viewers" {
   scope                = azurerm_dashboard_grafana.dashboard-grafana.id
-  role_definition_name = "GeoBlocking - Restricted Users"
+  role_definition_name = "SSO APM DTS Read Only"
   principal_id         = data.azuread_group.more_viewers.object_id
 }
 
