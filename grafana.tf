@@ -22,6 +22,16 @@ resource "azurerm_role_assignment" "viewers" {
   principal_id         = data.azuread_group.viewers.object_id
 }
 
+data "azuread_group" "more_viewers" {
+  display_name = "SSO Dynatrace HMCTS Access"
+}
+
+resource "azurerm_role_assignment" "more_viewers" {
+  scope                = azurerm_dashboard_grafana.dashboard-grafana.id
+  role_definition_name = "GeoBlocking - Restricted Users"
+  principal_id         = data.azuread_group.more_viewers.object_id
+}
+
 data "azuread_group" "editors" {
   display_name = "DTS CFT Developers"
 }
