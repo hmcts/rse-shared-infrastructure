@@ -69,3 +69,9 @@ resource "azurerm_role_assignment" "app_insights_dcd_cnp_prod_access" {
   principal_id         = azurerm_dashboard_grafana.dashboard-grafana.identity[0].principal_id
 }
 
+resource "azurerm_role_assignment" "app_insights_dcd_cnp_aat_access" {
+  scope                = "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9"
+  role_definition_name = "Reader"
+  principal_id         = azurerm_dashboard_grafana.dashboard-grafana.identity[0].principal_id
+}
+
