@@ -32,6 +32,16 @@ resource "azurerm_role_assignment" "more_viewers" {
   principal_id         = data.azuread_group.more_viewers.object_id
 }
 
+data "azuread_group" "dts_se_grafana_readers" {
+  display_name = "DTS SE - Grafana Readers"
+}
+
+resource "azurerm_role_assignment" "readers" {
+  scope                = azurerm_dashboard_grafana.dashboard-grafana.id
+  role_definition_name = "Grafana Viewer"
+  principal_id         = data.azuread_group.dts_se_grafana_readers.object_id
+}
+
 data "azuread_group" "editors" {
   display_name = "DTS CFT Developers"
 }
