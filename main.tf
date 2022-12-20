@@ -47,15 +47,3 @@ resource "azurerm_application_insights" "appinsights" {
     ]
   }
 }
-
-resource "azurerm_key_vault_access_policy" "implicit_managed_identity_access_policy" {
-  key_vault_id = module.key-vault.key_vault_id
-  # slack-help-bot-cftptl-intsvc-mi
-  object_id = "5e87a981-ca01-4d88-b16e-1326da5388bc"
-  tenant_id = data.azurerm_client_config.current.tenant_id
-
-  secret_permissions = [
-    "Get",
-    "List",
-  ]
-}
