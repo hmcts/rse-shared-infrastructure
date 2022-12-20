@@ -1,11 +1,7 @@
 
 locals {
   component = "dashboard"
-}
-
-moved {
-  from = module.database
-  to   = module.database[0]
+  outbound_ips = try(azurerm_dashboard_grafana.dashboard-grafana[0], false) ? azurerm_dashboard_grafana.dashboard-grafana[0].outbound_ip : []
 }
 
 module "database" {
@@ -23,8 +19,8 @@ module "database" {
 }
 
 resource "azurerm_postgresql_firewall_rule" "grafana" {
-  for_each            = toset(azurerm_dashboard_grafana.dashboard-grafana[0].outbound_ip)
-  name                = "grafana${index(azurerm_dashboard_grafana.dashboard-grafana[0].outbound_ip, each.value) + 1}"
+  for_each            = toset(local.outbound_ips)
+  name                = "grafana${index(local.outbound_ips, each.value) + 1}"
   resource_group_name = module.database[0].resource_group_name
   server_name         = module.database[0].name
   start_ip_address    = each.value
