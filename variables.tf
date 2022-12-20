@@ -27,3 +27,7 @@ variable "appinsights_location" {
 }
 
 variable "subscription" {}
+variable "dashboard_count" {
+  default = 1
+  type    = number
+}
