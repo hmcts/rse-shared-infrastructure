@@ -30,3 +30,38 @@ resource "azurerm_key_vault_secret" "DB-URL" {
   value        = "postgresql://${module.database.user_name}:${module.database.postgresql_password}@${module.database.host_name}:${module.database.postgresql_listen_port}/${module.database.postgresql_database}?sslmode=require"
   key_vault_id = module.key-vault.key_vault_id
 }
+
+module "postgresql" {
+
+  providers = {
+    azurerm.postgres_network = azurerm.postgres_network
+  }
+
+  source = "git@github.com:hmcts/terraform-module-postgresql-flexible?ref=master"
+  env    = var.env
+
+  product       = var.product
+  component     = local.component
+  business_area = "cft" # sds or cft
+
+  pgsql_databases = [
+    {
+      name : "dashboard"
+    }
+  ]
+
+  pgsql_version = "14"
+
+  # The ID of the principal to be granted admin access to the database server.
+  # On Jenkins it will be injected for you automatically as jenkins_AAD_objectId.
+  # Otherwise change the below:
+  admin_user_object_id = var.jenkins_AAD_objectId
+
+  common_tags = var.common_tags
+}
+
+resource "azurerm_key_vault_secret" "FLEXIBLE-DB-URL" {
+  name         = "flexible-db-url"
+  value        = "postgresql://${module.postgresql.user_name}:${module.postgresql.password}@${module.postgresql.fqdn}:5432/dashboard?sslmode=require"
+  key_vault_id = module.key-vault.key_vault_id
+}
