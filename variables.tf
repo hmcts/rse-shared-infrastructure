@@ -29,3 +29,8 @@ variable "appinsights_location" {
 variable "subscription" {}
 
 variable "aks_subscription_id" {}
+
+variable "dashboard_count" {
+  default = 1
+  type    = number
+}
