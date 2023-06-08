@@ -35,6 +35,7 @@ resource "azurerm_key_vault_secret" "DB-URL" {
 }
 
 module "postgresql" {
+  count              = var.dashboard_count
 
   providers = {
     azurerm.postgres_network = azurerm.postgres_network
