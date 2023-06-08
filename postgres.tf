@@ -1,6 +1,6 @@
 
 locals {
-  component = "dashboard"
+  component    = "dashboard"
   outbound_ips = try(azurerm_dashboard_grafana.dashboard-grafana[0].outbound_ip, [])
 }
 
@@ -43,7 +43,7 @@ module "postgresql" {
   source = "git@github.com:hmcts/terraform-module-postgresql-flexible?ref=master"
   env    = var.env
 
-  name          = "${var.product}-${local.component}-${var.env}}-flex"
+  name          = "dtsse-dashboard-flexdb"
   product       = var.product
   component     = local.component
   business_area = "cft" # sds or cft
