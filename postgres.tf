@@ -65,6 +65,6 @@ module "postgresql" {
 
 resource "azurerm_key_vault_secret" "FLEXIBLE-DB-URL" {
   name         = "flexible-db-url"
-  value        = "postgresql://${module.postgresql.user_name}:${module.postgresql.password}@${module.postgresql.fqdn}:5432/dashboard?sslmode=require"
+  value        = "postgresql://${module.postgresql.username}:${module.postgresql.password}@${module.postgresql.fqdn}:5432/dashboard?sslmode=require"
   key_vault_id = module.key-vault.key_vault_id
 }
