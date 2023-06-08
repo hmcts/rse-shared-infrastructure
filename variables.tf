@@ -27,3 +27,5 @@ variable "appinsights_location" {
 }
 
 variable "subscription" {}
+
+variable "aks_subscription_id" {}
