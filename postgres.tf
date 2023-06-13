@@ -33,40 +33,40 @@ resource "azurerm_key_vault_secret" "DB-URL" {
   value        = "postgresql://${module.database[0].user_name}:${module.database[0].postgresql_password}@${module.database[0].host_name}:${module.database[0].postgresql_listen_port}/${module.database[0].postgresql_database}?sslmode=require"
   key_vault_id = module.key-vault.key_vault_id
 }
-#
-#module "postgresql" {
-#  count              = var.dashboard_count
-#
-#  providers = {
-#    azurerm.postgres_network = azurerm.postgres_network
-#  }
-#
-#  source = "git@github.com:hmcts/terraform-module-postgresql-flexible?ref=master"
-#  env    = var.env
-#
-#  name          = "dtsse-dashboard-flexdb"
-#  product       = var.product
-#  component     = local.component
-#  business_area = "cft" # sds or cft
-#
-#  pgsql_databases = [
-#    {
-#      name : "dashboard"
-#    }
-#  ]
-#
-#  pgsql_version = "14"
-#
+
+module "postgresql" {
+  count              = var.dashboard_count
+
+  providers = {
+    azurerm.postgres_network = azurerm.postgres_network
+  }
+
+  source = "git@github.com:hmcts/terraform-module-postgresql-flexible?ref=master"
+  env    = var.env
+
+  name          = "dtsse-dashboard-flexdb"
+  product       = var.product
+  component     = local.component
+  business_area = "cft" # sds or cft
+
+  pgsql_databases = [
+    {
+      name : "dashboard"
+    }
+  ]
+
+  pgsql_version = "14"
+
 #  # The ID of the principal to be granted admin access to the database server.
 #  # On Jenkins it will be injected for you automatically as jenkins_AAD_objectId.
 #  # Otherwise change the below:
-#  admin_user_object_id = var.jenkins_AAD_objectId
-#
-#  common_tags = var.common_tags
-#}
-#
-#resource "azurerm_key_vault_secret" "FLEXIBLE-DB-URL" {
-#  name         = "flexible-db-url"
-#  value        = "postgresql://${module.postgresql[0].username}:${module.postgresql[0].password}@${module.postgresql[0].fqdn}:5432/dashboard?sslmode=require"
-#  key_vault_id = module.key-vault.key_vault_id
-#}
+  admin_user_object_id = var.jenkins_AAD_objectId
+
+  common_tags = var.common_tags
+}
+
+resource "azurerm_key_vault_secret" "FLEXIBLE-DB-URL" {
+ name         = "flexible-db-url"
+  value        = "postgresql://${module.postgresql[0].username}:${module.postgresql[0].password}@${module.postgresql[0].fqdn}:5432/dashboard?sslmode=require"
+  key_vault_id = module.key-vault.key_vault_id
+}
