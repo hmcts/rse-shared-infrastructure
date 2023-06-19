@@ -35,7 +35,7 @@ resource "azurerm_key_vault_secret" "DB-URL" {
 }
 
 module "postgresql" {
-  count              = var.dashboard_count
+  count = var.dashboard_count
 
   providers = {
     azurerm.postgres_network = azurerm.postgres_network
@@ -57,16 +57,17 @@ module "postgresql" {
 
   pgsql_version = "14"
 
-#  # The ID of the principal to be granted admin access to the database server.
-#  # On Jenkins it will be injected for you automatically as jenkins_AAD_objectId.
-#  # Otherwise change the below:
+  #  # The ID of the principal to be granted admin access to the database server.
+  #  # On Jenkins it will be injected for you automatically as jenkins_AAD_objectId.
+  #  # Otherwise change the below:
   admin_user_object_id = var.jenkins_AAD_objectId
 
   common_tags = var.common_tags
 }
 
 resource "azurerm_key_vault_secret" "FLEXIBLE-DB-URL" {
- name         = "flexible-db-url"
+  count        = var.dashboard_count
+  name         = "flexible-db-url"
   value        = "postgresql://${module.postgresql[0].username}:${module.postgresql[0].password}@${module.postgresql[0].fqdn}:5432/dashboard?sslmode=require"
   key_vault_id = module.key-vault.key_vault_id
 }
