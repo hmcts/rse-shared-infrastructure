@@ -56,6 +56,15 @@ module "postgresql" {
   ]
 
   pgsql_version = "14"
+  public_access = true
+  pgsql_firewall_rules = [
+    for ip in local.outbound_ips : {
+      name             = "grafana${index(local.outbound_ips, ip) + 1}"
+      start_ip_address = ip
+      end_ip_address   = ip
+    }
+  ]
+
 
   #  # The ID of the principal to be granted admin access to the database server.
   #  # On Jenkins it will be injected for you automatically as jenkins_AAD_objectId.
