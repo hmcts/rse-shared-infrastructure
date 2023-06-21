@@ -74,6 +74,12 @@ module "postgresql" {
   common_tags = var.common_tags
 }
 
+resource "azurerm_postgresql_flexible_server_configuration" "extensions" {
+  name      = "azure.extensions"
+  server_id = module.postgresql[0].instance_id
+  value     = "hypopg"
+}
+
 resource "azurerm_key_vault_secret" "FLEXIBLE-DB-URL" {
   count        = var.dashboard_count
   name         = "flexible-db-url"
