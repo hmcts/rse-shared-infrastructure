@@ -78,7 +78,7 @@ resource "azurerm_postgresql_flexible_server_configuration" "extensions" {
   count     = var.dashboard_count
   name      = "azure.extensions"
   server_id = module.postgresql[0].instance_id
-  value     = "hypopg"
+  value     = "hypopg,plpgsql,pg_stat_statements,pg_buffercache"
 }
 
 resource "azurerm_key_vault_secret" "FLEXIBLE-DB-URL" {
