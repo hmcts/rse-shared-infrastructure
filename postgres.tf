@@ -27,13 +27,6 @@ resource "azurerm_postgresql_firewall_rule" "grafana" {
   end_ip_address      = each.value
 }
 
-resource "azurerm_key_vault_secret" "DB-URL" {
-  count        = var.dashboard_count
-  name         = "db-url"
-  value        = "postgresql://${module.database[0].user_name}:${module.database[0].postgresql_password}@${module.database[0].host_name}:${module.database[0].postgresql_listen_port}/${module.database[0].postgresql_database}?sslmode=require"
-  key_vault_id = module.key-vault.key_vault_id
-}
-
 module "postgresql" {
   count = var.dashboard_count
 
@@ -81,9 +74,9 @@ resource "azurerm_postgresql_flexible_server_configuration" "extensions" {
   value     = "hypopg,plpgsql,pg_stat_statements,pg_buffercache"
 }
 
-resource "azurerm_key_vault_secret" "FLEXIBLE-DB-URL" {
+resource "azurerm_key_vault_secret" "DB-URL" {
   count        = var.dashboard_count
-  name         = "flexible-db-url"
+  name         = "db-url"
   value        = "postgresql://${module.postgresql[0].username}:${module.postgresql[0].password}@${module.postgresql[0].fqdn}:5432/dashboard?sslmode=require"
   key_vault_id = module.key-vault.key_vault_id
 }
