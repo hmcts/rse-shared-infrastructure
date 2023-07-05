@@ -8,7 +8,7 @@ module "postgresql" {
   count = var.dashboard_count
 
   providers = {
-    azurerm.postgres_network = azurerm.cft_vnet
+    azurerm.postgres_network = azurerm.postgres_network
   }
 
   source = "git@github.com:hmcts/terraform-module-postgresql-flexible?ref=master"
@@ -26,7 +26,7 @@ module "postgresql" {
   ]
 
   pgsql_version = "14"
-  public_access = true
+  public_access = false
   pgsql_firewall_rules = [
     for ip in local.outbound_ips : {
       name             = "grafana${index(local.outbound_ips, ip) + 1}"
