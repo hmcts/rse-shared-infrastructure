@@ -8,7 +8,7 @@ module "postgresql" {
   count = var.dashboard_count
 
   providers = {
-    azurerm.postgres_network = azurerm.postgres_network
+    azurerm.postgres_network = azurerm.cft_vnet
   }
 
   source = "git@github.com:hmcts/terraform-module-postgresql-flexible?ref=master"
