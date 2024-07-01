@@ -1,6 +1,6 @@
 resource "azurerm_consumption_budget_resource_group" "grafana-budget-alert" {
   count             = var.dashboard_count
-  name              = "grafana-budget-alert"
+  name              = "grafana-cost-alert"
   resource_group_id = azurerm_resource_group.rg.id
 
   amount     = 500
