@@ -7,17 +7,17 @@ resource "azurerm_consumption_budget_resource_group" "grafana-budget-alert" {
   time_grain = "Monthly"
 
   time_period {
-    start_date = "2023-09-01T00:00:00Z"
+    start_date = "2024-07-01T00:00:00Z"
   }
 
-#  filter {
-#    dimension {
-#      name = "ResourceId"
-#      values = [
-#        azurerm_dashboard_grafana.dashboard-grafana[0].id,
-#      ]
-#    }
-#  }
+  filter {
+    dimension {
+      name = "ResourceId"
+      values = [
+        azurerm_dashboard_grafana.dashboard-grafana[0].id,
+      ]
+    }
+  }
 
   notification {
     enabled        = true
