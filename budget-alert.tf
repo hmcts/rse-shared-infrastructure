@@ -26,7 +26,7 @@ resource "azurerm_consumption_budget_resource_group" "grafana-budget-alert" {
     threshold_type = "Forecasted"
 
     contact_groups = [
-      module.alert-action-group.action_group_name
+      module.alert-action-group.action_group_id
     ]
   }
 }
