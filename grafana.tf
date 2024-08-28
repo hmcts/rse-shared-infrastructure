@@ -3,7 +3,10 @@ resource "azurerm_dashboard_grafana" "dashboard-grafana" {
   count                             = var.dashboard_count
   name                              = "${var.product}-grafana-${var.env}"
   resource_group_name               = azurerm_resource_group.rg.name
-  location                          = "westeurope"
+  location                          = var.location
+  grafana_major_version             = var.grafana_major_version
+  api_key_enabled                   = var.api_key_enabled
+  zone_redundancy_enabled           = var.zone_redundancy_enabled
   deterministic_outbound_ip_enabled = true
 
   identity {
