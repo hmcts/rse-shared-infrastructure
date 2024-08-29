@@ -1,7 +1,7 @@
 
 locals {
   component    = "dashboard"
-  outbound_ips = try(azurerm_dashboard_grafana.dashboard-grafana[0].outbound_ip, [])
+  outbound_ips = [data.azurerm_public_ip.grafana_public_ip.ip_address]
 }
 
 module "postgresql" {
@@ -38,6 +38,12 @@ module "postgresql" {
 
   common_tags = var.common_tags
 }
+
+data "azurerm_public_ip" "grafana_public_ip" {
+  name                = "example-pip"
+  resource_group_name = "example-resources"
+}
+
 
 resource "azurerm_postgresql_flexible_server_configuration" "extensions" {
   count     = var.dashboard_count
