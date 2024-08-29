@@ -40,8 +40,8 @@ module "postgresql" {
 }
 
 data "azurerm_dashboard_grafana" "dashboard-grafana-for-ips" {
-  name                              = "${var.product}-grafana-${var.env}"
-  resource_group_name               = azurerm_resource_group.rg.name
+  name                = "${var.product}-grafana-${var.env}"
+  resource_group_name = azurerm_resource_group.rg.name
 
   depends_on = [
     azurerm_dashboard_grafana.dashboard-grafana
