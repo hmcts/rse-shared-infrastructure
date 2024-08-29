@@ -28,8 +28,8 @@ module "postgresql" {
   pgsql_version = "14"
   public_access = true
   pgsql_firewall_rules = [
-    for ip in azurerm_dashboard_grafana.dashboard-grafana[0].outbound_ip : {
-      name             = "grafana${index(azurerm_dashboard_grafana.dashboard-grafana[0].outbound_ip, ip) + 1}"
+    for ip in azurerm_dashboard_grafana.dashboard-grafana-for-ips.outbound_ip : {
+      name             = "grafana${index(azurerm_dashboard_grafana.dashboard-grafana-for-ips.outbound_ip, ip) + 1}"
       start_ip_address = ip
       end_ip_address   = ip
     }
@@ -37,6 +37,11 @@ module "postgresql" {
   admin_user_object_id = var.jenkins_AAD_objectId
 
   common_tags = var.common_tags
+}
+
+data "azurerm_dashboard_grafana" "dashboard-grafana-for-ips" {
+  name                              = "${var.product}-grafana-${var.env}"
+  resource_group_name               = azurerm_resource_group.rg.name
 
   depends_on = [
     azurerm_dashboard_grafana.dashboard-grafana
