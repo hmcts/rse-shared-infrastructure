@@ -43,6 +43,9 @@ data "azurerm_dashboard_grafana" "dashboard-grafana-for-ips" {
   name                = "${var.product}-grafana-${var.env}"
   resource_group_name = azurerm_resource_group.rg.name
 
+   #  Try something crazy?!
+  outbound_ips        = [ "1.2.3.4", "5.6.7.8"]
+
   depends_on = [
     azurerm_dashboard_grafana.dashboard-grafana
   ]
