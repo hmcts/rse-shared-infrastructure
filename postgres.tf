@@ -28,7 +28,7 @@ module "postgresql" {
   pgsql_version = "14"
   public_access = true
   pgsql_firewall_rules = [
-    for ip in try(data.azurerm_dashboard_grafana.dashboard-grafana-for-ips.outbound_ips, []) :
+    for ip in try(data.azurerm_dashboard_grafana.dashboard-grafana-for-ips.outbound_ips, []) : {
       name             = "grafana${index(try(data.azurerm_dashboard_grafana.dashboard-grafana-for-ips.outbound_ips, []), ip) + 1}"
       start_ip_address = ip
       end_ip_address   = ip
