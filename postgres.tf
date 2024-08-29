@@ -39,9 +39,9 @@ module "postgresql" {
   common_tags = var.common_tags
 }
 
-data "azurerm_dashboard_grafana" "grafana_public_ip" {
-  name                = "dashboard-grafana"
-  resource_group_name = "dashboard-grafana-resources"
+data "azurerm_dashboard_grafana" "grafana-public-ip" {
+  name                = "${var.product}-grafana-${var.env}"
+  resource_group_name = azurerm_resource_group.rg.name
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "extensions" {
