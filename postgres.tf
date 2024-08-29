@@ -1,7 +1,7 @@
 
 locals {
   component    = "dashboard"
-  outbound_ips = azurerm_dashboard_grafana.grafana_public_ip.outbound_ips
+  outbound_ips = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip
 }
 
 module "postgresql" {
