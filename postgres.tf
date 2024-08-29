@@ -1,7 +1,7 @@
 
 locals {
   component    = "dashboard"
-  outbound_ips = [azurerm_public_ip.grafana-outbound]
+  outbound_ips = [data.azurerm_public_ip.grafana_public_ip.ip_address]
 }
 
 module "postgresql" {
@@ -39,16 +39,9 @@ module "postgresql" {
   common_tags = var.common_tags
 }
 
-resource "azurerm_resource_group" "grafana-outbound" {
-  name     = "grafanaOutbound"
-  location = var.location
-}
-
-resource "azurerm_public_ip" "grafana-outbound" {
-  name                = "acceptanceTestPublicIp1"
-  resource_group_name = azurerm_resource_group.grafana-outbound.name
-  location            = azurerm_resource_group.grafana-outbound.location
-  allocation_method   = "Dynamic"
+data "azurerm_public_ip" "grafana_public_ip" {
+  name                = "dashboard-grafana"
+  resource_group_name = "dashboard-grafana-resources"
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "extensions" {
