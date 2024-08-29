@@ -1,7 +1,7 @@
 
 locals {
   component    = "dashboard"
-  outbound_ips = [data.azurerm_public_ip.grafana_public_ip.ip_address]
+  outbound_ips = [data.azurerm_dashboard_grafana.grafana_public_ip.outbound_ip]
 }
 
 module "postgresql" {
@@ -39,7 +39,7 @@ module "postgresql" {
   common_tags = var.common_tags
 }
 
-data "azurerm_public_ip" "grafana_public_ip" {
+data "azurerm_dashboard_grafana" "grafana_public_ip" {
   name                = "dashboard-grafana"
   resource_group_name = "dashboard-grafana-resources"
 }
