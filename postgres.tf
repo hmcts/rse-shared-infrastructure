@@ -37,6 +37,10 @@ module "postgresql" {
   admin_user_object_id = var.jenkins_AAD_objectId
 
   common_tags = var.common_tags
+
+  depends_on = [
+    azurerm_dashboard_grafana.dashboard-grafana
+  ]
 }
 
 data "azurerm_dashboard_grafana" "dashboard-grafana-for-ips" {
