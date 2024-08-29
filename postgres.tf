@@ -37,6 +37,10 @@ module "postgresql" {
   admin_user_object_id = var.jenkins_AAD_objectId
 
   common_tags = var.common_tags
+
+  depends_on = [
+    azurerm_dashboard_grafana.dashboard-grafana
+  ]
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "extensions" {
@@ -53,6 +57,3 @@ resource "azurerm_key_vault_secret" "DB-URL" {
   key_vault_id = module.key-vault.key_vault_id
 }
 
-depends_on = [
-  azurerm_dashboard_grafana.dashboard-grafana
-]
