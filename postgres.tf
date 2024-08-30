@@ -30,13 +30,13 @@ module "postgresql" {
   pgsql_firewall_rules = [
     {
       name             = "grafana00"
-      start_ip_address = azurerm_dashboard_grafana.dashboard-grafana.outbound_ips[0]
-      end_ip_address   = azurerm_dashboard_grafana.dashboard-grafana.outbound_ips[0]
+      start_ip_address = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
+      end_ip_address   = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[0]
     },
     {
       name             = "grafana01"
-      start_ip_address = azurerm_dashboard_grafana.dashboard-grafana.outbound_ips[1]
-      end_ip_address   = azurerm_dashboard_grafana.dashboard-grafana.outbound_ips[1]
+      start_ip_address = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[1]
+      end_ip_address   = azurerm_dashboard_grafana.dashboard-grafana.outbound_ip[1]
     },
   ]
   admin_user_object_id = var.jenkins_AAD_objectId
