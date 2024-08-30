@@ -12,7 +12,7 @@ module "alert-action-group" {
   action_group_name      = "DTSSE Alert (${var.env})"
   short_name             = "DTSSE_Alert"
   email_receiver_name    = "DTSSE Alerts And Monitoring"
-  email_receiver_address = data.azurerm_key_vault_secret.alert-email.value
+  email_receiver_address = try( data.azurerm_key_vault_secret.alert-email.value, "softwareexcellence@justice.gov.uk" )
 }
 
 resource "azurerm_key_vault_secret" "alert_action_group_name" {
