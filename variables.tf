@@ -29,3 +29,21 @@ variable "dashboard_count" {
   default = 1
   type    = number
 }
+
+variable "grafana_major_version" {
+  default     = 10
+  description = "Specifies the major version of Grafana to deploy 10"
+  type        = number
+}
+
+variable "api_key_enabled" {
+  default     = true
+  description = "Specifies whether API Keys can be generated"
+  type        = bool
+}
+
+variable "zone_redundancy_enabled" {
+  default     = true
+  description = "Specifies whether enable the zone redundancy setting of the Grafana instance."
+  type        = bool
+}
