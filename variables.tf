@@ -43,7 +43,7 @@ variable "api_key_enabled" {
 }
 
 variable "zone_redundancy_enabled" {
-  default     = true
+  default     = false
   description = "Specifies whether enable the zone redundancy setting of the Grafana instance."
   type        = bool
 }
