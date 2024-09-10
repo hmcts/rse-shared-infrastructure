@@ -11,7 +11,7 @@ module "postgresql" {
     azurerm.postgres_network = azurerm.postgres_network
   }
 
-  source = "git@github.com:hmcts/terraform-module-postgresql-flexible?ref=ad-group-object-id"
+  source = "git@github.com:hmcts/terraform-module-postgresql-flexible?ref=master"
   env    = var.env
 
   name          = "dtsse-dashboard-flexdb"
