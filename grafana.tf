@@ -59,7 +59,7 @@ data "azuread_group" "dts_se_grafana_readers" {
 resource "azurerm_role_assignment" "readers" {
   count                = var.dashboard_count
   scope                = azurerm_dashboard_grafana.dashboard-grafana10[0].id
-  role_definition_name = "Grafana Viewers"
+  role_definition_name = "Grafana Viewer"
   principal_id         = data.azuread_group.dts_se_grafana_readers.object_id
 }
 
