@@ -77,6 +77,13 @@ resource "azurerm_role_assignment" "readers" {
   principal_id         = data.azuread_group.dts_se_grafana_readers.object_id
 }
 
+resource "azurerm_role_assignment" "readers-grafana9" {
+  count                = var.dashboard_count
+  scope                = azurerm_dashboard_grafana.dashboard-grafana[0].id
+  role_definition_name = "Grafana Viewer"
+  principal_id         = data.azuread_group.dts_se_grafana_readers.object_id
+}
+
 data "azuread_group" "editors" {
   display_name = "DTS CFT Developers"
 }
@@ -88,6 +95,12 @@ resource "azurerm_role_assignment" "editors" {
   principal_id         = data.azuread_group.editors.object_id
 }
 
+resource "azurerm_role_assignment" "editors-grafana9" {
+  count                = var.dashboard_count
+  scope                = azurerm_dashboard_grafana.dashboard-grafana[0].id
+  role_definition_name = "Grafana Editor"
+  principal_id         = data.azuread_group.editors.object_id
+}
 
 data "azuread_group" "admins" {
   display_name = "DTS CFT Software Engineering"
@@ -96,6 +109,13 @@ data "azuread_group" "admins" {
 resource "azurerm_role_assignment" "admin" {
   count                = var.dashboard_count
   scope                = azurerm_dashboard_grafana.dashboard-grafana10[0].id
+  role_definition_name = "Grafana Admin"
+  principal_id         = data.azuread_group.admins.object_id
+}
+
+resource "azurerm_role_assignment" "admin-grafana9" {
+  count                = var.dashboard_count
+  scope                = azurerm_dashboard_grafana.dashboard-grafana[0].id
   role_definition_name = "Grafana Admin"
   principal_id         = data.azuread_group.admins.object_id
 }
@@ -112,6 +132,13 @@ resource "azurerm_role_assignment" "platops" {
   principal_id         = data.azuread_group.platops.object_id
 }
 
+resource "azurerm_role_assignment" "platops-grafana9" {
+  count                = var.dashboard_count
+  scope                = azurerm_dashboard_grafana.dashboard-grafana[0].id
+  role_definition_name = "Grafana Admin"
+  principal_id         = data.azuread_group.platops.object_id
+}
+
 resource "azurerm_role_assignment" "app_insights_dcd_cnp_prod_access" {
   count                = var.dashboard_count
   scope                = "/subscriptions/8999dec3-0104-4a27-94ee-6588559729d1"
@@ -119,9 +146,23 @@ resource "azurerm_role_assignment" "app_insights_dcd_cnp_prod_access" {
   principal_id         = azurerm_dashboard_grafana.dashboard-grafana10[0].identity[0].principal_id
 }
 
+resource "azurerm_role_assignment" "app_insights_dcd_cnp_prod_access-grafana9" {
+  count                = var.dashboard_count
+  scope                = "/subscriptions/8999dec3-0104-4a27-94ee-6588559729d1"
+  role_definition_name = "Reader"
+  principal_id         = azurerm_dashboard_grafana.dashboard-grafana[0].identity[0].principal_id
+}
+
 resource "azurerm_role_assignment" "app_insights_dcd_cnp_aat_access" {
   count                = var.dashboard_count
   scope                = "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9"
   role_definition_name = "Reader"
   principal_id         = azurerm_dashboard_grafana.dashboard-grafana10[0].identity[0].principal_id
+}
+
+resource "azurerm_role_assignment" "app_insights_dcd_cnp_aat_access-grafana9" {
+  count                = var.dashboard_count
+  scope                = "/subscriptions/1c4f0704-a29e-403d-b719-b90c34ef14c9"
+  role_definition_name = "Reader"
+  principal_id         = azurerm_dashboard_grafana.dashboard-grafana[0].identity[0].principal_id
 }
