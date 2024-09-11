@@ -41,6 +41,13 @@ resource "azurerm_role_assignment" "viewers" {
   principal_id         = data.azuread_group.viewers.object_id
 }
 
+resource "azurerm_role_assignment" "viewers-grafana9" {
+  count                = var.dashboard_count
+  scope                = azurerm_dashboard_grafana.dashboard-grafana[0].id
+  role_definition_name = "Grafana Viewer"
+  principal_id         = data.azuread_group.viewers.object_id
+}
+
 data "azuread_group" "more_viewers" {
   display_name = "GeoBlocking - Restricted Users"
 }
@@ -48,6 +55,13 @@ data "azuread_group" "more_viewers" {
 resource "azurerm_role_assignment" "more_viewers" {
   count                = var.dashboard_count
   scope                = azurerm_dashboard_grafana.dashboard-grafana10[0].id
+  role_definition_name = "Grafana Viewer"
+  principal_id         = data.azuread_group.more_viewers.object_id
+}
+
+resource "azurerm_role_assignment" "more_viewers-grafana9" {
+  count                = var.dashboard_count
+  scope                = azurerm_dashboard_grafana.dashboard-grafana[0].id
   role_definition_name = "Grafana Viewer"
   principal_id         = data.azuread_group.more_viewers.object_id
 }
