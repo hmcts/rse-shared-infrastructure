@@ -9,7 +9,7 @@ module "alert-action-group" {
   env      = var.env
 
   resourcegroup_name     = azurerm_resource_group.rg.name
-  action_group_name      = "DTSSE Alert (${var.env})"
+  action_group_name      = "DTSSE_Alert_${var.env}"
   short_name             = "DTSSE_Alert"
   email_receiver_name    = "DTSSE Alerts And Monitoring"
   email_receiver_address = data.azurerm_key_vault_secret.alert-email.value
